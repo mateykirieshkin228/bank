@@ -1,10 +1,10 @@
 package tme.crazymegakirieshkin;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
-
-import static tme.crazymegakirieshkin.functions.*;
 
 public class seeyourdata {
     public static void main(String[] args) {
@@ -12,6 +12,7 @@ public class seeyourdata {
         if (file.exists() == false) {
             System.out.println("вы не зарегестрированы в системе");
         } else if (file.exists() == true) {
+            System.setProperty("file.encoding", "UTF-8");
             Scanner scan = new Scanner (System.in);
             System.out.println("какую дату хотите вывести?");
             System.out.println("ФИО, паспорт, карта");
@@ -32,5 +33,9 @@ public class seeyourdata {
                 System.err.println("ошибка при чтении файла: " + e.getMessage());
             }
         }
+    }
+    public static String[] FileReader() throws IOException {
+        String str = new String(Files.readAllBytes(Paths.get("yourdata.txt")));
+        return str.split("\n");
     }
 }

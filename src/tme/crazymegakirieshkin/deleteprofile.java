@@ -9,6 +9,7 @@ public class deleteprofile {
         if (file.exists() == false) {
             System.out.println("вы не зарегестрированы в системе");
         } else if (file.exists() == true) {
+            System.setProperty("file.encoding", "UTF-8");
             System.out.println("точно ли вы хотите удалить свою учетную запись? напишите да или нет");
             Scanner scan = new Scanner (System.in);
             String yesorno = scan.nextLine();

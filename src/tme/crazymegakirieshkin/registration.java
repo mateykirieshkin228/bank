@@ -1,18 +1,20 @@
 package tme.crazymegakirieshkin;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import static tme.crazymegakirieshkin.functions.*;
-
 public class registration {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         File file;
         try {
             file = new File("yourdata.txt");
             if (file.createNewFile()) {
+                System.setProperty("file.encoding", "UTF-8");
                 System.out.println("File created");
                 Scanner scan = new Scanner(System.in);
                 Random rand = new Random();
@@ -93,6 +95,15 @@ public class registration {
         }
         catch (Exception e) {
             System.err.println(e);
+        }
+    }
+    public static void FileFiller(String text) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("yourdata.txt", true))) {
+            writer.write(text);
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("не записал хз почему");
+            e.printStackTrace();
         }
     }
 }

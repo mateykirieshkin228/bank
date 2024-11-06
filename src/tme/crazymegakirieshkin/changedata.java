@@ -1,9 +1,12 @@
 package tme.crazymegakirieshkin;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
-
-import static tme.crazymegakirieshkin.functions.*;
 
 public class changedata {
     public static void main(String[] args) {
@@ -11,6 +14,7 @@ public class changedata {
         if (file.exists() == false) {
             System.out.println("вы не зарегестрированы в системе");
         } else if (file.exists() == true) {
+            System.setProperty("file.encoding", "UTF-8");
             String undercat;
             String categ;
             int newInt;
@@ -86,6 +90,26 @@ public class changedata {
                     System.out.println("значение записано");
                 }
             }
+        }
+    }
+    public static void ReFiller (int str_num, String newText, int elementIndex) {
+        try {
+            Path path = Paths.get("yourdata.txt");
+            List<String> lines = Files.readAllLines(path);
+            if (str_num < 1 || str_num > lines.size()) {
+                throw new IllegalArgumentException("номера строки не существует");
+            }
+            String[] elements = lines.get(str_num - 1).split(" ");
+            if (elementIndex < 0 || elementIndex >= elements.length) {
+                throw new IllegalArgumentException("элемента не существует");
+            }
+            elements[elementIndex] = newText;
+            lines.set(str_num - 1, String.join(" ", elements));
+            Files.write(path, lines);
+        } catch (IOException e) {
+            System.err.println("ошибка при работе с файлом: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
         }
     }
 }
